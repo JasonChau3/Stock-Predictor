@@ -5,10 +5,9 @@ import requests
 from getTickers import *
 
 
-dow = save_sp500_tickers()
+dow = save_dow_tickers()
 print(dow)
     
-
-yahoo = yf.Ticker(dow[0])
-print(yahoo)
+data = yf.download(dow,period = "6mo", group_by='ticker')
+print(data)
 

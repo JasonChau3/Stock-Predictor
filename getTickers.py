@@ -3,7 +3,7 @@ import pickle
 import requests
 import re
 
-def save_sp500_tickers():
+def save_dow_tickers():
     resp = requests.get('https://finance.yahoo.com/quote/%5EDJI/components/')
     print(resp);
     soup = bs.BeautifulSoup(resp.text, 'lxml')
