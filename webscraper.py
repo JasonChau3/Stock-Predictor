@@ -17,5 +17,5 @@ data = pdr.get_data_yahoo(dow,period = "6mo", group_by='ticker')
 
 for tickers in dow:
     df= pd.DataFrame(data[tickers])
-    df.to_excel(tickers +'.xlsx')
+    df.to_excel('./data' +tickers +'.xlsx')
 
