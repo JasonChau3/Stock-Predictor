@@ -1,1 +1,1 @@
-insert text here
+Welcome to our Stock Predictor. 
