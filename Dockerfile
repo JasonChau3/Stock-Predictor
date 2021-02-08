@@ -29,7 +29,7 @@ RUN pip install --no-cache-dir numpy==1.14.3
 RUN pip install --no-cache-dir scipy==1.1.0
 RUN pip install --no-cache-dir networkx==2.1
 RUN pip install --no-cache-dir scikit-learn==0.19.2
-RUN pip install --no-cache-dir matplotlib==2.2.2
+RUN pip install --no-cache-dir matplotlib==3.3.2
 
 # 4) change back to notebook user
 # COPY /run_jupyter.sh /
