@@ -22,9 +22,9 @@ RUN	apt-get install -y traceroute
 
 # 3) install packages
 
-RUN pip install --no-cache-dir yfinance == 0.1.55
-RUN pip install --no-cache-dir pandas-datareader == 0.9.0
-RUN pip install --no-cache-dir beautifulsoup4 == 4.9.3
+RUN pip install --no-cache-dir yfinance==0.1.55
+RUN pip install --no-cache-dir pandas-datareader==0.9.0
+RUN pip install --no-cache-dir beautifulsoup4==4.9.3
 RUN pip install --no-cache-dir numpy==1.14.3
 RUN pip install --no-cache-dir scipy==1.1.0
 RUN pip install --no-cache-dir networkx==2.1
