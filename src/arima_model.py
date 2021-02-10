@@ -29,7 +29,7 @@ from statsmodels.tsa.arima_model import ARIMA
 
 
 def arima_acc(ticker_name):
-    ticker_df = pd.read_excel('data/owJonesData' + ticker_name + '.xlsx', parse_dates = ['Date'])#, index_col = 'Date')
+    ticker_df = pd.read_excel('data/dowJonesData' + ticker_name + '.xlsx', parse_dates = ['Date'])#, index_col = 'Date')
     #date as index is nice for plotting
     ticker_df = ticker_df.set_index('Date')
     #sets frequency of date indices
