@@ -17,8 +17,12 @@ def getData():
     data = pdr.get_data_yahoo(dow,period = "6mo", group_by='ticker')
 
 
+    #loops for each ticker and create a dataaframe out of it
     for tickers in dow:
         df= pd.DataFrame(data[tickers])
+        print(df)
+        #max min normalize each column
+        df =(df-df.min())/(df.max()-df.min())
         df.to_excel('../data/dowJonesData/' +tickers +'.xlsx')
 
     sp500tic = save_sp500_tickers()
@@ -26,8 +30,10 @@ def getData():
 
     data = pdr.get_data_yahoo(sp500tic,period = "6mo", group_by='ticker')
 
+    #loops for each ticker and create a dataaframe out of it
     for tickers in sp500tic:
         df= pd.DataFrame(data[tickers])
+        df = (df-df.min())/(df.max()-df.min())
         df.to_excel('../data/SP500Data/' +tickers +'.xlsx')
 
     tickerdf = pd.DataFrame(sp500tic,columns=['ticker'])
