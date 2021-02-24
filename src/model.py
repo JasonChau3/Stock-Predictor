@@ -79,7 +79,7 @@ import pandas as pd
 
 
 #load in adjacency matrix
-adj = pd.read_csv(adj_filpath)
+adj = pd.read_csv('../data/correlation0.4graph.csv')
 features = featureDaySpace(5, 0)
 features = torch.FloatTensor(np.array(features))
 
@@ -87,9 +87,7 @@ features = torch.FloatTensor(np.array(features))
 # In[3]:
 
 
-sample_adj = np.array([[1, 0, 1],
-                      [0, 1, 1],
-                      [0, 0, 1]])
+sample_adj = adj
 
 
 # In[12]:
