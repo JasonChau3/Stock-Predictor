@@ -3,7 +3,7 @@ import bs4 as bs
 import pickle
 import requests
 import pandas as pd
-from src.getTickers import *
+from getTickers import *
 import os
 
 from pandas_datareader import data as pdr

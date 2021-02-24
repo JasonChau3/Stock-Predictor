@@ -6,7 +6,6 @@
 
 """
 Title: Graph Convolutional Networks in Pytorch
-Author: Thomas Kipf
 Date: February 25, 2019
 Availability: https://github.com/tkipf/pygcn
 """
@@ -15,6 +14,7 @@ import torch
 from torch.nn.parameter import Parameter
 from torch.nn.modules.module import Module
 
+from featureSpaceDay import *
 
 class GraphConvolution(Module):
     """
