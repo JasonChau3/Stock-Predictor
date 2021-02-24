@@ -42,17 +42,15 @@ stocks in the datasets.
 #day is the day at e.g day (0)
 #return featurespace and the label( label is 0 if close is lower that the open on the next day, 
 #label is 1 if close is higher than open on the next day)
-def featureDaySpace(numDays, day):
+def featureDaySpace(day,numDays):
     labels = [] # array of 30 labels for each stock
     
     dow = save_dow_tickers()
     featureVals = []
+    filepath = '../data/dowJonesData/'
 
-    data = pdr.get_data_yahoo(dow,period = "6mo", group_by='ticker')
     for x in dow:
-        df = data[x]
-        df = df.iloc[1:]
-        df = (df-df.min())/(df.max()-df.min())
+        df = pd.read_csv(filepath + x + '.csv', error_bad_lines=False);
         #get the labels by seeing if the next day closing > opening 
         dayAfterRow = df.iloc[day+numDays]
         #open price at index 0 
@@ -66,7 +64,7 @@ def featureDaySpace(numDays, day):
             labels.append(0)
             
         #get the feature space
-        df = df.drop(columns = ['Adj Close','Volume'])
+        df = df.drop(columns = ['Adj Close','Volume','Date'])
 
 
         featureVals.append(list(chain.from_iterable(df.iloc[day:day+numDays-1].values.tolist())))

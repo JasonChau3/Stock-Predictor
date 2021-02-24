@@ -1,4 +1,4 @@
 from featureSpaceDay import *
-from webscraper import *
 
-getData();
+print(featureDaySpace(0,4));
+
