@@ -42,10 +42,10 @@ stocks in the datasets.
 #day is the day at e.g day (0)
 #return featurespace and the label( label is 0 if close is lower that the open on the next day, 
 #label is 1 if close is higher than open on the next day)
+dow = save_dow_tickers()
 def featureDaySpace(day,numDays):
     labels = [] # array of 30 labels for each stock
     
-    dow = save_dow_tickers()
     featureVals = []
     filepath = '../data/dowJonesData/'
 
@@ -67,11 +67,11 @@ def featureDaySpace(day,numDays):
         df = df.drop(columns = ['Adj Close','Volume','Date'])
 
 
-        featureVals.append(list(chain.from_iterable(df.iloc[day:day+numDays-1].values.tolist())))
+        featureVals.append(list(chain.from_iterable(df.iloc[day:day+numDays].values.tolist())))
 
     tempCol = ['Open','High','Low','Volume']
     col = []
-    for x in range(numDays-1):
+    for x in range(numDays):
         for y in tempCol:
             col.append(y + ' Day ' + str(x) )
     

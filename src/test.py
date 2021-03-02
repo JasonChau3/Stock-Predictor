@@ -1,4 +1,6 @@
 from featureSpaceDay import *
 
-print(featureDaySpace(0,4));
+features, labels = featureDaySpace(0,5)
+print(features)
+print(labels)
 
