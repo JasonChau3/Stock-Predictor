@@ -167,8 +167,8 @@ for e in range(NUM_EPOCHS):
 
 
 #test loop
-total_test_loss = 0
-total_test_acc = 0
+test_losses = []
+test_accs = []
 for i in range(int(127 * .7) + 1, 127 - num_days -1):
     features, labels = featureDaySpace(i,num_days)
     features = torch.FloatTensor(np.array(features))
@@ -178,10 +178,10 @@ for i in range(int(127 * .7) + 1, 127 - num_days -1):
     labels = labels.unsqueeze(1).float()
     loss_test = crit(output, labels)
     acc_test = accuracy(output, labels)
-    total_test_loss += loss_test.item()
-    total_test_acc = acc_test.item()
-total_test_loss /= (127 - (int(127 * .7) + 1))
-total_test_acc /= (127 - (int(127 * .7) + 1))
+    test_losses.append(loss_test.item())
+    test_accs.append(acc_test.item())
+total_test_loss = np.mean(test_losses)
+total_test_acc = np.mean(test_accs)
 
-print('This is our total test loss:' + str(total_test_loss));
-print('This is our test accuracy:' + str(total_test_acc));
+print('This is our total test loss: ' + str(total_test_loss))
+print('This is our test accuracy: ' + str(total_test_acc))
