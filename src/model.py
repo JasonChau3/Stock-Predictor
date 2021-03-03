@@ -105,21 +105,20 @@ adj = np.linalg.inv(D**(1/2)).dot(sample_adj).dot(D**(1/2))
 
 num_days = 5
 NUM_EPOCHS = 100
+LEARNING_RATE = 0.01
+NUM_HIDDEN = 32;
+#NUM_HIDDEN is the number of hidden features
+#nhid is the number of hidden features
 model = VanillaGCN(nfeat=4 * num_days,
-            nhid=16,
+            nhid=NUM_HIDDEN,
             nclass=1)
 
 
 # In[18]:
 
 
-
-
-# In[ ]:
-
-
 optimizer = optim.Adam(model.parameters(),
-                       lr=.001)
+                       lr=LEARNING_RATE)
 crit = nn.BCEWithLogitsLoss()
 
 
