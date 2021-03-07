@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[18]:
-
-
 import numpy as np
 import pandas as pd
 import torch
@@ -16,11 +13,12 @@ from torch.nn.modules.module import Module
 from featureSpaceDay import *
 
 
-# In[15]:
-
-
+num_days = 5
 learning_rate = 0.001
-
+input_size = 4*num_days
+hidden_size = 16
+num_classes = 1
+NUM_EPOCHS = 100
 
 # In[16]:
 
@@ -29,10 +27,10 @@ learning_rate = 0.001
 class fcn(nn.Module):
     def __init__(self, input_size, hidden_size, num_classes):
         super(fcn, self).__init__()
-        self.fc1 = nn.Linear(input_size, hidden_size) 
+        self.fc1 = nn.Linear(input_size, hidden_size)
         self.relu = nn.ReLU()
-        self.fc2 = nn.Linear(hidden_size, num_classes)  
-    
+        self.fc2 = nn.Linear(hidden_size, num_classes)
+
     def forward(self, x):
         out = self.fc1(x)
         out = self.relu(out)
@@ -42,27 +40,8 @@ class fcn(nn.Module):
 model = fcn(input_size, hidden_size, num_classes)
 
 # Loss and optimizer
-criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)  
-
-
-# In[17]:
-
-
-#load in adjacency matrix
-adj = pd.read_csv('../data/correlation0.4graph.csv')
-features = featureDaySpace(5, 0)
-features = torch.FloatTensor(np.array(features))
-
-sample_adj = adj
-
-#normalize adjacency matrix
-D = np.diag(sample_adj.sum(1))
-adj = np.linalg.inv(D**(1/2)).dot(sample_adj).dot(D**(1/2))
-
-
-# In[ ]:
-
+criterion = nn.BCEWithLogitsLoss()
+optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
 #training loop
 for e in range(NUM_EPOCHS):
@@ -73,7 +52,7 @@ for e in range(NUM_EPOCHS):
         features = torch.FloatTensor(np.array(features))
         model.train()
         optimizer.zero_grad()
-        output = model(features, adj)
+        output = model(features)
         loss_train = criterion(output, labels)
         acc_train = accuracy(output, labels)
         loss_train.backward()
@@ -83,20 +62,14 @@ for e in range(NUM_EPOCHS):
     print(f'Loss for epoch {e}: {epoch_loss}')
 
 
-# In[ ]:
-
 
 def accuracy(preds, labels):
-    
+
     preds = torch.round(torch.sigmoid(preds))
 
     acc = torch.round((preds == labels).sum().float() / labels.shape[0] * 100)
-    
+
     return acc
-
-
-# In[ ]:
-
 
 #test loop
 test_losses = []
@@ -106,7 +79,7 @@ for i in range(int(127 * .7) + 1, 127 - num_days -1):
     features = torch.FloatTensor(np.array(features))
     labels = torch.FloatTensor(np.array(labels))
     model.eval()
-    output = model(features, adj)
+    output = model(features)
     labels = labels.unsqueeze(1).float()
     loss_test = criterion(output, labels)
     acc_test = accuracy(output, labels)
@@ -117,4 +90,3 @@ total_test_acc = np.mean(test_accs)
 
 print('This is our total test loss: ' + str(total_test_loss))
 print('This is our test accuracy: ' + str(total_test_acc))
-
