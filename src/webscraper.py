@@ -9,6 +9,12 @@ import os
 from pandas_datareader import data as pdr
 
 
+'''
+This method gets all the data of the Dow Jones stock and SP500 stocks in the 
+last 6 months, and saves all of those data, in the data folder under each of 
+its respective folders as csv's
+Returns: None
+'''
 def getData():
     yf.pdr_override()
     dow = save_dow_tickers()

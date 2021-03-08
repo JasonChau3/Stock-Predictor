@@ -4,6 +4,11 @@ import requests
 import pandas as pd
 import re
 
+'''
+This method is to scrape the yahoo finance website for all the dowjones tickers
+
+Returns: The Dow Jones tickers
+'''
 def save_dow_tickers():
     resp = requests.get('https://finance.yahoo.com/quote/%5EDJI/components/')
     soup = bs.BeautifulSoup(resp.text, 'lxml')
@@ -16,6 +21,12 @@ def save_dow_tickers():
     
     return tickers
 
+'''
+This method webscrapes from wikipedia to get all the SP500 tickers 
+
+Returns: Sp500 tickers
+
+'''
 def save_sp500_tickers():
     data = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')
     table = data[0]

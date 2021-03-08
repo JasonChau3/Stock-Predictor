@@ -1,0 +1,8 @@
+{
+"NUM_EPOCHS" : 100,
+"LEARNING_RATE" : 0.001,
+"NUM_HIDDEN" : 32,
+"num_days": 5,
+"nfeat" : 20,
+"nclass" : 1
+}

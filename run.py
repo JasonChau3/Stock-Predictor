@@ -23,6 +23,7 @@ args = parser.parse_args()
 if 'test' in args.flag or 'all' in args.flag:
     #first download all the necessary data
     getData()
+
     #then run the data through the model
 
 

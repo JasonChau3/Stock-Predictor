@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import networkx as nx
-pd.set_option('display.max_columns', None)
 
 import yfinance as yf
 import bs4 as bs
@@ -37,12 +36,6 @@ featureSpace (DataFrame) : Columns will be the numDays * 4 and the len(rows) wil
 stocks in the datasets.
 '''
 
-#numDays for 4 columns * numDays
-#col would have open high low, volume
-#day is the day at e.g day (0)
-#return featurespace and the label( label is 0 if close is lower that the open on the next day, 
-#label is 1 if close is higher than open on the next day)
-#dow = save_dow_tickers()
 def featureDaySpace(day,numDays):
     labels = [] # array of 30 labels for each stock
     

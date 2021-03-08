@@ -20,6 +20,14 @@ hidden_size = 16
 num_classes = 1
 NUM_EPOCHS = 100
 
+with open('../config/fcnModel_params.json') as f:
+    p = json.loads(f.read())
+    num_days = p['num_days']
+    learning_rate = p['learning_rate']
+    input_size = p['input_size']
+    hidden_size = p['hidden_size']    
+    num_classes = p['num_classes']
+    NUM_EPOCHS = p['NUM_EPOCHS']
 # In[16]:
 
 
@@ -42,7 +50,6 @@ model = fcn(input_size, hidden_size, num_classes)
 # Loss and optimizer
 criterion = nn.BCEWithLogitsLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
-<<<<<<< HEAD
 
 def accuracy(preds, labels):
 

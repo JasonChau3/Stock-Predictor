@@ -12,6 +12,7 @@ Availability: https://github.com/tkipf/pygcn
 import torch
 import torch.optim as optim
 import math
+import json
 
 from torch.nn.parameter import Parameter
 from torch.nn.modules.module import Module
@@ -103,17 +104,18 @@ def modelRun():
 
 
     # In[17]:
-
-
-    num_days = 5
-    NUM_EPOCHS = 100
-    LEARNING_RATE = 0.001
-    NUM_HIDDEN = 32;
-    #NUM_HIDDEN is the number of hidden features
-    #nhid is the number of hidden features
-    model = VanillaGCN(nfeat=4 * num_days,
+    #read in the numbers from the config folder
+    with open('../config/model-params.json') as f:
+        p = json.loads(f.read())
+        num_days = p['num_days']
+        NUM_EPOCHS = p['NUM_EPOCHS']
+        LEARNING_RATE = p['LEARNING_RATE']
+        NUM_HIDDEN = p['NUM_HIDDEN'];
+        nfeats = p['nfeat']
+        nclasses = p['nclass']
+    model = VanillaGCN(nfeat= nfeats,
                 nhid=NUM_HIDDEN,
-                nclass=1)
+                nclass=nclasses)
 
 
     # In[18]:
