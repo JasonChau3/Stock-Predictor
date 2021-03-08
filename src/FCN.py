@@ -42,6 +42,7 @@ model = fcn(input_size, hidden_size, num_classes)
 # Loss and optimizer
 criterion = nn.BCEWithLogitsLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+<<<<<<< HEAD
 
 def accuracy(preds, labels):
 
@@ -73,6 +74,13 @@ for e in range(NUM_EPOCHS):
 
 
 
+def accuracy(preds, labels):
+
+    preds = torch.round(torch.sigmoid(preds))
+
+    acc = torch.round((preds == labels).sum().float() / labels.shape[0] * 100)
+
+    return acc
 
 #test loop
 test_losses = []
