@@ -13,7 +13,10 @@ Availability: https://towardsdatascience.com/time-series-forecasting-predicting-
 
 
 # In[2]:
-
+'''
+This is our ARIMA baseline model that accepts a ticker name and outputs an 
+accuracy that the model performs on stock movement prediction.
+'''
 
 #basic libraries for data analysis and plotting
 import pandas as pd
@@ -39,8 +42,10 @@ def arima_acc(ticker_name):
     #label is 1 if closing price is greater than opening price else 0
     ticker_df['Label'] = ticker_df.apply(lambda row: 1 if row['Open'] < row['Close'] else 0, axis=1)
     
-    training_data = ticker_df[:int(len(ticker_df)*.7)]
-    test_data = ticker_df[int(len(ticker_df)*.7):]
+    TRAINING_SIZE = int(len(ticker_df)*.7)
+    
+    training_data = ticker_df[:TRAINING_SIZE]
+    test_data = ticker_df[TRAINING_SIZE:]
     training_data = training_data['Close'].values
     test_data = test_data['Close'].values
     
@@ -55,7 +60,7 @@ def arima_acc(ticker_name):
         true_test_value = test_data[t]
         history.append(true_test_value)
     
-    test_open_prices = ticker_df['Open'][int(len(ticker_df)*0.7):].values
+    test_open_prices = ticker_df['Open'][TRAINING_SIZE:].values
     test_preds = []
     for i in range(len(model_predictions)):
         #if predicted increase, predict 1, else 0
@@ -65,7 +70,7 @@ def arima_acc(ticker_name):
             test_preds.append(0)
     test_preds = np.array(test_preds)
     
-    test_labels = ticker_df['Label'][int(len(ticker_df)*0.7):].values
+    test_labels = ticker_df['Label'][TRAINING_SIZE:].values
     accuracy = np.mean(test_labels == test_preds)
     return accuracy
 
