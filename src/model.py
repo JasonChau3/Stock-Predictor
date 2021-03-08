@@ -9,6 +9,12 @@ Title: Graph Convolutional Networks in Pytorch
 Date: February 25, 2019
 Availability: https://github.com/tkipf/pygcn
 """
+
+'''
+This file contains a Pytorch implementation of our main model for stock movement prediction using graph convolutional networks.
+It contains the model and the code that trains and tests the model.
+'''
+
 import torch
 import torch.optim as optim
 import math
@@ -113,6 +119,8 @@ def modelRun():
         NUM_HIDDEN = p['NUM_HIDDEN'];
         nfeats = p['nfeat']
         nclasses = p['nclass']
+
+
     model = VanillaGCN(nfeat= nfeats,
                 nhid=NUM_HIDDEN,
                 nclass=nclasses)
@@ -141,12 +149,13 @@ def modelRun():
     # In[ ]:
 
 
+    TRAINING_SIZE = int(127 * .7)
     adj = torch.FloatTensor(adj)
     #training loop
     for e in range(NUM_EPOCHS):
         #use 70% of days for training
         epoch_loss = 0
-        for i in range(int(127 * .7)):
+        for i in range(int(TRAINING_SIZE)):
             features, labels = featureDaySpace(i,num_days)
             labels = torch.FloatTensor(np.array(labels))
             features = torch.FloatTensor(np.array(features))
@@ -164,20 +173,20 @@ def modelRun():
             loss_train.backward()
             optimizer.step()
             epoch_loss += loss_train.item()
-        epoch_loss /= int(127 * .7)
+        epoch_loss /= TRAINING_SIZE
         print(f'Loss for epoch {e}: {epoch_loss}')
 
 
     # In[ ]:
 
-
+    DATA_LENGTH = 127
     #test loop
     test_losses = []
     test_accs = []
     test_predictions = []
     recall= []
     precision = []
-    for i in range(int(127 * .7) + 1, 127 - num_days -1):
+    for i in range(TRAINING_SIZE + 1, DATA_LENGTH - num_days - 1):
         features, labels = featureDaySpace(i,num_days)
         features = torch.FloatTensor(np.array(features))
         labels = torch.FloatTensor(np.array(labels))
