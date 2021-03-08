@@ -17,7 +17,7 @@ module_path = os.path.abspath(os.path.join('..'))
 if module_path not in sys.path:
     sys.path.append(module_path+"\\src")
 from  getTickers import *
-import os
+import glob
 from pandas_datareader import data as pdr
 
 
@@ -42,32 +42,35 @@ stocks in the datasets.
 #day is the day at e.g day (0)
 #return featurespace and the label( label is 0 if close is lower that the open on the next day, 
 #label is 1 if close is higher than open on the next day)
-dow = save_dow_tickers()
+#dow = save_dow_tickers()
 def featureDaySpace(day,numDays):
     labels = [] # array of 30 labels for each stock
     
     featureVals = []
     filepath = '../data/dowJonesData/'
+    #temp add
+    #for x in tickers:
+    dirs = os.listdir(filepath)
+    for x in dirs:
+        if '.csv' in x:
+            df = pd.read_csv(filepath + x, error_bad_lines=False);
+            #get the labels by seeing if the next day closing > opening 
+            dayAfterRow = df.iloc[day+numDays]
+            #open price at index 0 
+            openPrice = dayAfterRow.iloc[0]
+            #close at index 3
+            closePrice = dayAfterRow.iloc[3]
 
-    for x in dow:
-        df = pd.read_csv(filepath + x + '.csv', error_bad_lines=False);
-        #get the labels by seeing if the next day closing > opening 
-        dayAfterRow = df.iloc[day+numDays]
-        #open price at index 0 
-        openPrice = dayAfterRow.iloc[0]
-        #close at index 3
-        closePrice = dayAfterRow.iloc[3]
-
-        if closePrice > openPrice:
-            labels.append(1)
-        else:
-            labels.append(0)
-            
-        #get the feature space
-        df = df.drop(columns = ['Adj Close','Volume','Date'])
+            if closePrice > openPrice:
+                labels.append(1)
+            else:
+                labels.append(0)
+                
+            #get the feature space
+            df = df.drop(columns = ['Adj Close','Volume','Date'])
 
 
-        featureVals.append(list(chain.from_iterable(df.iloc[day:day+numDays].values.tolist())))
+            featureVals.append(list(chain.from_iterable(df.iloc[day:day+numDays].values.tolist())))
 
     tempCol = ['Open','High','Low','Volume']
     col = []

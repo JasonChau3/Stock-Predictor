@@ -23,13 +23,15 @@ import matplotlib.pyplot as plt
 #from statsmodels.tsa.stattools import adfuller
 from pandas.plotting import autocorrelation_plot
 from statsmodels.tsa.arima_model import ARIMA
+import os
 
 
 # In[3]:
 
 
+filepath = '../data/dowJonesData/' 
 def arima_acc(ticker_name):
-    ticker_df = pd.read_excel('../data/dowJonesData' + ticker_name + '.xlsx', parse_dates = ['Date'])#, index_col = 'Date')
+    ticker_df = pd.read_csv(filepath + ticker_name , parse_dates = ['Date'])#, index_col = 'Date')
     #date as index is nice for plotting
     ticker_df = ticker_df.set_index('Date')
     #sets frequency of date indices
@@ -37,8 +39,8 @@ def arima_acc(ticker_name):
     #label is 1 if closing price is greater than opening price else 0
     ticker_df['Label'] = ticker_df.apply(lambda row: 1 if row['Open'] < row['Close'] else 0, axis=1)
     
-    training_data = ticker_df[:int(len(aapl)*.7)]
-    test_data = ticker_df[int(len(aapl)*.7):]
+    training_data = ticker_df[:int(len(ticker_df)*.7)]
+    test_data = ticker_df[int(len(ticker_df)*.7):]
     training_data = training_data['Close'].values
     test_data = test_data['Close'].values
     
@@ -53,7 +55,7 @@ def arima_acc(ticker_name):
         true_test_value = test_data[t]
         history.append(true_test_value)
     
-    test_open_prices = ticker_df['Open'][int(len(aapl)*0.7):].values
+    test_open_prices = ticker_df['Open'][int(len(ticker_df)*0.7):].values
     test_preds = []
     for i in range(len(model_predictions)):
         #if predicted increase, predict 1, else 0
@@ -63,12 +65,19 @@ def arima_acc(ticker_name):
             test_preds.append(0)
     test_preds = np.array(test_preds)
     
-    test_labels = ticker_df['Label'][int(len(aapl)*0.7):].values
+    test_labels = ticker_df['Label'][int(len(ticker_df)*0.7):].values
     accuracy = np.mean(test_labels == test_preds)
     return accuracy
 
 
 # In[ ]:
+dirs = os.listdir(filepath)
+acc = []
+for x in dirs:
+    if '.csv' in x:
+        accuracy = arima_acc(x)
+        acc.append(accuracy);
+print('Average accuracy :' + str(np.mean(acc)));
 
 
 
