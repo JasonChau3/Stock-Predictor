@@ -24,7 +24,7 @@ from torch.nn.parameter import Parameter
 from torch.nn.modules.module import Module
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
-from featureSpaceDay import *
+from src.featureSpaceDay import *
 
 
 class GraphConvolution(Module):
@@ -90,7 +90,7 @@ import pandas as pd
 
 def modelRun():
     #load in adjacency matrix
-    adj = pd.read_csv('../data/correlation0.4graph.csv')
+    adj = pd.read_csv('./data/correlation0.4graph.csv')
     adj = adj.iloc[:,1:]
     colsTickers = adj.columns;
 
@@ -111,7 +111,7 @@ def modelRun():
 
     # In[17]:
     #read in the numbers from the config folder
-    with open('../config/model-params.json') as f:
+    with open('./config/model-params.json') as f:
         p = json.loads(f.read())
         num_days = p['num_days']
         NUM_EPOCHS = p['NUM_EPOCHS']

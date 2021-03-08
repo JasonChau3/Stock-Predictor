@@ -15,7 +15,6 @@ from itertools import chain
 module_path = os.path.abspath(os.path.join('..'))
 if module_path not in sys.path:
     sys.path.append(module_path+"\\src")
-from  getTickers import *
 import glob
 from pandas_datareader import data as pdr
 
@@ -40,7 +39,7 @@ def featureDaySpace(day,numDays):
     labels = [] # array of 30 labels for each stock
     
     featureVals = []
-    filepath = '../data/dowJonesData/'
+    filepath = './data/dowJonesData/'
     #temp add
     #for x in tickers:
     dirs = os.listdir(filepath)
