@@ -10,16 +10,9 @@ This method is to scrape the yahoo finance website for all the dowjones tickers
 Returns: The Dow Jones tickers
 '''
 def save_dow_tickers():
-    resp = requests.get('https://finance.yahoo.com/quote/%5EDJI/components/')
-    soup = bs.BeautifulSoup(resp.text, 'lxml')
-    table = soup.find("table", {"data-reactid": "9"})
 
-    tickers = []
-    for row in table.findAll('tr')[1:]:
-        ticker = row.find('td').text
-        tickers.append(ticker)
-    
-    return tickers
+    tickers = 'WMT WBA VZ V UNH TRV PG NKE MSFT MRK MMM MCD KO JPM JNJ INTC IBM HON HD GS DOW DIS CVX CSCO CRM CAT BA AXP AMGN AAPL'
+    return tickers.split(' ');
 
 '''
 This method webscrapes from wikipedia to get all the SP500 tickers 
@@ -37,4 +30,3 @@ def save_sp500_tickers():
     return tickers
 
 
-print(save_sp500_tickers())

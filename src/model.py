@@ -90,7 +90,19 @@ import pandas as pd
 
 def modelRun():
     #load in adjacency matrix
-    adj = pd.read_csv('./data/correlation0.4graph.csv')
+    # In[17]:
+    #read in the numbers from the config folder
+    with open('./config/model-params.json') as f:
+        p = json.loads(f.read())
+        num_days = p['num_days']
+        NUM_EPOCHS = p['NUM_EPOCHS']
+        LEARNING_RATE = p['LEARNING_RATE']
+        NUM_HIDDEN = p['NUM_HIDDEN'];
+        nfeats = p['nfeat']
+        nclasses = p['nclass']
+        dataset = p['dataset']
+
+    adj = pd.read_csv(dataset)
     adj = adj.iloc[:,1:]
     colsTickers = adj.columns;
 
@@ -109,16 +121,6 @@ def modelRun():
     adj = np.linalg.inv(D**(1/2)).dot(sample_adj).dot(D**(1/2))
 
 
-    # In[17]:
-    #read in the numbers from the config folder
-    with open('./config/model-params.json') as f:
-        p = json.loads(f.read())
-        num_days = p['num_days']
-        NUM_EPOCHS = p['NUM_EPOCHS']
-        LEARNING_RATE = p['LEARNING_RATE']
-        NUM_HIDDEN = p['NUM_HIDDEN'];
-        nfeats = p['nfeat']
-        nclasses = p['nclass']
 
 
     model = VanillaGCN(nfeat= nfeats,
@@ -149,7 +151,7 @@ def modelRun():
     # In[ ]:
 
 
-    TRAINING_SIZE = int(127 * .7)
+    TRAINING_SIZE = int(124 * .7)
     adj = torch.FloatTensor(adj)
     #training loop
     for e in range(NUM_EPOCHS):
@@ -179,7 +181,7 @@ def modelRun():
 
     # In[ ]:
 
-    DATA_LENGTH = 127
+    DATA_LENGTH = 124
     #test loop
     test_losses = []
     test_accs = []
@@ -226,4 +228,3 @@ def modelRun():
 
 
 
-modelRun()   

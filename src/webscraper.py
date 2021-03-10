@@ -42,7 +42,7 @@ def getData():
         df = (df-df.min())/(df.max()-df.min())
         df = df.iloc[1:]
         df['Date'] = df.index.format()
-        df.to_csv('../data/SP500Data/' +tickers +'csv', index = False)
+        df.to_csv('./data/SP500Data/' +tickers +'.csv', index = False)
 
     tickerdf = pd.DataFrame(sp500tic,columns=['ticker'])
 

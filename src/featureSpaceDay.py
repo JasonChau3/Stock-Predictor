@@ -10,6 +10,7 @@ import requests
 import pandas as pd
 import sys
 import os
+import json
 
 from itertools import chain
 module_path = os.path.abspath(os.path.join('..'))
@@ -37,9 +38,11 @@ stocks in the datasets.
 
 def featureDaySpace(day,numDays):
     labels = [] # array of 30 labels for each stock
+    with open('./config/model-params.json') as f:
+        p = json.loads(f.read())
+        filepath = p['filepath']
     
     featureVals = []
-    filepath = './data/dowJonesData/'
     #temp add
     #for x in tickers:
     dirs = os.listdir(filepath)

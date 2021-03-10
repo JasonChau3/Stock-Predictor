@@ -4,5 +4,8 @@
 "NUM_HIDDEN" : 32,
 "num_days": 5,
 "nfeat" : 20,
-"nclass" : 1
+"nclass" : 1,
+"dataset" : "./data/sp500correlation0.4graph.csv",
+"thresh" : 0.4,
+"filepath" : "./data/SP500Data/" 
 }

@@ -7,13 +7,16 @@ For running actual models:
 
 In order to run our stock predictor, just make sure that you are in the current directory and run the command 
 
-python run.py all
+python run.py all - this will let you scrape the data, as well as running our model
 
-For running the test file:
 
-python run.py test
+python run.py test - this will let you run our model on the data pulled from the webscraper, as well as predicting which stocks will
+be bullish or bearish in Dow Jones 30.
 
-This command builds the test portion of the code. Please keep in mind this will pull in data from the yahoo finance api, so it will require an internet connection to pull in the data and calculate it.
+python run.py fcn - this will let you run our Fully connected network model on the data pulled from the webscraper
+
+python run.py build - This command builds the test portion of the code. Please keep in mind this will pull in data from the yahoo finance api,
+so it will require an internet connection to pull in the data and calculate it.
 
 Required packages
 
