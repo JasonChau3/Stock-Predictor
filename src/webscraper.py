@@ -31,18 +31,18 @@ def getData():
         
         df['Date'] = df.index.format()
 
-        df.to_csv('../data/dowJonesData/' +tickers +'.csv',index= False);
+        df.to_csv('./data/dowJonesData/' +tickers +'.csv',index= False);
 
     sp500tic = save_sp500_tickers()
     data = pdr.get_data_yahoo(sp500tic,period = "6mo", group_by='ticker')
 
     #loops for each ticker and create a dataaframe out of it
-    #for tickers in sp500tic:
-    #    df= pd.DataFrame(data[tickers])
-    #    df = (df-df.min())/(df.max()-df.min())
-    #    df = df.iloc[1:]
-    #    df['Date'] = df.index.format()
-    #    df.to_csv('./data/SP500Data/' +tickers +'.csv', index = False)
+    for tickers in sp500tic:
+        df= pd.DataFrame(data[tickers])
+        df = (df-df.min())/(df.max()-df.min())
+        df = df.iloc[1:]
+        df['Date'] = df.index.format()
+        df.to_csv('./data/SP500Data/' +tickers +'.csv', index = False)
 
     #tickerdf = pd.DataFrame(sp500tic,columns=['ticker'])
 
