@@ -159,11 +159,11 @@ def modelRun():
         epoch_loss = 0
         for i in range(int(TRAINING_SIZE)):
             features, labels = featureDaySpace(i,num_days)
+
             labels = torch.FloatTensor(np.array(labels))
             features = torch.FloatTensor(np.array(features))
             model.train()
             optimizer.zero_grad()
-
             output = model(features, adj)
             #turn the labels from [30] to [30,1]
             labels = labels.unsqueeze(1).float()

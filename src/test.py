@@ -1,4 +1,3 @@
-from generateCorr import *
-
-buildCorrGraph('../data/dowJonesData',0.4);
+from webscraper import *
+getData()
 
