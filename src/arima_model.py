@@ -32,7 +32,7 @@ import os
 # In[3]:
 
 
-filepath = '../data/dowJonesData/' 
+filepath = '../data/SP500Data/' 
 def arima_acc(ticker_name):
     ticker_df = pd.read_csv(filepath + ticker_name , parse_dates = ['Date'])#, index_col = 'Date')
     #date as index is nice for plotting

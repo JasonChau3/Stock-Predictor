@@ -22,4 +22,6 @@ def buildCorrGraph(filepath,threshhold):
     if 'dow' in filepath:
         corr4.to_csv('./data/dowJonescorrelation0.4graph.csv')
     else:
+        print('in here');
         corr4.to_csv('./data/sp500correlation0.4graph.csv')
+

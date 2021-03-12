@@ -3,7 +3,7 @@ import bs4 as bs
 import pickle
 import requests
 import pandas as pd
-from getTickers import *
+from src.getTickers import *
 import os
 
 from pandas_datareader import data as pdr
@@ -28,7 +28,7 @@ def getData():
         #max min normalize each column
         df =(df-df.min())/(df.max()-df.min())
         df = df.iloc[1:]
-        
+        df = df.ffill(axis = 0) 
         df['Date'] = df.index.format()
 
         df.to_csv('./data/dowJonesData/' +tickers +'.csv',index= False);
@@ -41,6 +41,7 @@ def getData():
         df= pd.DataFrame(data[tickers])
         df = (df-df.min())/(df.max()-df.min())
         df = df.iloc[1:]
+        df = df.ffill(axis = 0)
         df['Date'] = df.index.format()
         df.to_csv('./data/SP500Data/' +tickers +'.csv', index = False)
 

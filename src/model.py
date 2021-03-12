@@ -105,6 +105,7 @@ def modelRun():
     adj = pd.read_csv(dataset)
     adj = adj.iloc[:,1:]
     colsTickers = adj.columns;
+    print(adj);
 
     # In[3]:
 
@@ -159,6 +160,15 @@ def modelRun():
         epoch_loss = 0
         for i in range(int(TRAINING_SIZE)):
             features, labels = featureDaySpace(i,num_days)
+            features = features.ffill(axis =0);
+            if features.isnull().sum().sum() > 0:
+
+                print(features.isnull().sum().sum())
+
+                
+                print('day' + str(i));
+                print(features);
+                return;
 
             labels = torch.FloatTensor(np.array(labels))
             features = torch.FloatTensor(np.array(features))
