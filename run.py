@@ -30,6 +30,7 @@ with open('./config/model-params.json') as f:
     p = json.loads(f.read())
     dataset = p['dataset']
     threshold = p['thresh']
+    timeframe = p['timeframe']
 
 if 'test' in args.flag:
     print('Running the Model');
@@ -37,7 +38,7 @@ if 'test' in args.flag:
 
 elif 'all' in args.flag:
     print('Downloading the Data for The Dow Jones and The S&P500')
-    getData()
+    getData(timeframe)
     print('Generating the Correlation graphs');
     buildCorrGraph(dow,threshold);
     buildCorrGraph(spy,threshold);
@@ -50,14 +51,14 @@ elif 'fcn' in args.flag:
 
 elif 'build' in args.flag:
     print('Downloading the Data for The Dow Jones and The S&P500')
-    getData()
+    getData(timeframe)
     print('Generating the Correlation graphs');
     buildCorrGraph(dow,threshold);
     buildCorrGraph(spy,threshold);
 
 else:
     print('Downloading the Data for The Dow Jones and The S&P500')
-    getData()
+    getData(timeframe)
     print('Generating the Correlation graphs');
     buildCorrGraph(dow,threshold);
     buildCorrGraph(spy,threshold);

@@ -200,6 +200,7 @@ def modelRun():
     precision = []
     for i in range(TRAINING_SIZE + 1, DATA_LENGTH - num_days - 1):
         features, labels = featureDaySpace(i,num_days)
+        features = features.ffill(axis =0);
         features = torch.FloatTensor(np.array(features))
         labels = torch.FloatTensor(np.array(labels))
         model.eval()

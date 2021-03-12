@@ -40,8 +40,9 @@ def arima_acc(ticker_name):
     #sets frequency of date indices
     #aapl.index = aapl.index.to_period('D')
     #label is 1 if closing price is greater than opening price else 0
+    ticker_df = ticker_df.ffill(axis=0);
+    ticker_df = ticker_df.bfill(axis=0);
     ticker_df['Label'] = ticker_df.apply(lambda row: 1 if row['Open'] < row['Close'] else 0, axis=1)
-    
     TRAINING_SIZE = int(len(ticker_df)*.7)
     
     training_data = ticker_df[:TRAINING_SIZE]
@@ -50,6 +51,7 @@ def arima_acc(ticker_name):
     test_data = test_data['Close'].values
     
     history = [x for x in training_data]
+    print(sum([history == np.nan]))
     model_predictions = []
     for t in range(len(test_data)):
         model = ARIMA(history, order=(5, 1, 0))

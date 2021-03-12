@@ -15,11 +15,11 @@ last 6 months, and saves all of those data, in the data folder under each of
 its respective folders as csv's
 Returns: None
 '''
-def getData():
+def getData(timeframe):
     yf.pdr_override()
     dow = save_dow_tickers()
         
-    data = pdr.get_data_yahoo(dow,period = "6mo", group_by='ticker')
+    data = pdr.get_data_yahoo(dow,period = timeframe, group_by='ticker')
 
 
     #loops for each ticker and create a dataaframe out of it
@@ -31,10 +31,14 @@ def getData():
         df = df.ffill(axis = 0) 
         df['Date'] = df.index.format()
 
-        df.to_csv('./data/dowJonesData/' +tickers +'.csv',index= False);
+
+        if "6" in timeframe:
+            df.to_csv('./data/dowJonesData/' +tickers +'.csv',index= False);
+        else:
+            df.to_csv('./data/12modowJonesData/' +tickers +'.csv',index= False);
 
     sp500tic = save_sp500_tickers()
-    data = pdr.get_data_yahoo(sp500tic,period = "6mo", group_by='ticker')
+    data = pdr.get_data_yahoo(sp500tic,period = timeframe, group_by='ticker')
 
     #loops for each ticker and create a dataaframe out of it
     for tickers in sp500tic:
@@ -43,7 +47,11 @@ def getData():
         df = df.iloc[1:]
         df = df.ffill(axis = 0)
         df['Date'] = df.index.format()
-        df.to_csv('./data/SP500Data/' +tickers +'.csv', index = False)
+        if "6" in timeframe:
+            df.to_csv('./data/SP500Data/' +tickers +'.csv', index = False)
+        else:
+            df.to_csv('./data/12moSP500Data/' +tickers +'.csv', index = False)
+
 
     #tickerdf = pd.DataFrame(sp500tic,columns=['ticker'])
 
