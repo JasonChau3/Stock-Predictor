@@ -18,6 +18,20 @@ python run.py fcn - this will let you run our Fully connected network model on t
 python run.py build - This command builds the test portion of the code. Please keep in mind this will pull in data from the yahoo finance api,
 so it will require an internet connection to pull in the data and calculate it.
 
+
+------ CONFIG FILE--------------
+
+"NUM_EPOCHS" : 100, ( this is the number of trials you want to use)
+"LEARNING_RATE" : 0.001, ( this is the learning rate)
+"NUM_HIDDEN" : 32, ( number of hidden features)
+"num_days": 5, (number of lag days you will have, we chose 5 because there are 5 trading days)
+"nfeat" : 20, ( this is 4 * num_days)
+"nclass" : 1, 
+"dataset" : "./data/dowJonescorrelation0.4graph.csv", (this is the correlation graph we use for our model)
+"thresh" : 0.4, ( the threshold for the node adjacency)
+"filepath" : "./data/12modowJonesData/", (the dataset to use)
+"timeframe" : "12mo" ( which time period, there is 12mo and 6 mo
+
 Required packages
 
 yfinance == 0.1.55
